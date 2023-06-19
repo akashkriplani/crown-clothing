@@ -28,14 +28,9 @@ export const db = getFirestore();
 export const createUserDocumentFromAuth = async (userAuth) => {
   const userDocRef = doc(db, 'users', userAuth.uid);
 
-  console.log(userDocRef);
-
   const userSnapshot = await getDoc(userDocRef);
 
-  console.log(userSnapshot);
-
-  console.log(userSnapshot.exists());
-
+  // If the user does not exist in the firestore db, create it, else return it
   if (!userSnapshot.exists()) {
     const { displayName, email } = userAuth;
     const createdAt = new Date();
