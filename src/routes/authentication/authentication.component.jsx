@@ -6,7 +6,7 @@ const logGoogleUser = async () => {
   const userDocRef = await createUserDocumentFromAuth(user);
 };
 
-const SignIn = () => {
+const Authentication = () => {
   return (
     <div>
       <h1>Sign In Page</h1>
@@ -16,4 +16,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default Authentication;
