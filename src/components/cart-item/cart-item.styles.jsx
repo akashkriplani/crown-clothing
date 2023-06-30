@@ -23,19 +23,3 @@ export const ItemDetails = styled.div`
     font-size: 16px;
   }
 `;
-
-// .cart - item - container {
-
-//   .item-details {
-//     width: 70%;
-//     display: flex;
-//     flex-direction: column;
-//     align-items: flex-start;
-//     justify-content: center;
-//     padding: 10px 20px;
-
-//     .name {
-//       font-size: 16px;
-//     }
-//   }
-// }
