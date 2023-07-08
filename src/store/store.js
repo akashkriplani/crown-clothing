@@ -1,23 +1,8 @@
 import { compose, legacy_createStore as createStore, applyMiddleware } from 'redux';
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-// import logger from 'redux-logger';
+import logger from 'redux-logger';
 import { rootReducer } from './root-reducer';
-
-// Custom logger middleware which works pretty much the same as redux-logger
-const loggerMiddleware = (store) => (next) => (action) => {
-  if (!action.type) {
-    return next(action);
-  }
-
-  console.log('type: ', action.type);
-  console.log('payload: ', action.payload);
-  console.log('current state: ', store.getState());
-
-  next(action);
-
-  console.log('new state: ', store.getState());
-};
 
 const persistConfig = {
   key: 'root',
@@ -27,9 +12,15 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-const middlewares = [loggerMiddleware];
+// Instead of logger from redux-logger, we can use the custom middleware
+// written inside store/middleware/logger.js
+const middlewares = [process.env.NODE_ENV !== 'production' && logger].filter(Boolean);
 
-const composedEnhancers = compose(applyMiddleware(...middlewares));
+// Enable redux devtools extension in development mode
+const composeEnhancer =
+  (process.env.NODE_ENV !== 'production' && window && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
+
+const composedEnhancers = composeEnhancer(applyMiddleware(...middlewares));
 
 export const store = createStore(persistedReducer, undefined, composedEnhancers);
 
