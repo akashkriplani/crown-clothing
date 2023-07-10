@@ -2,7 +2,8 @@ import { compose, legacy_createStore as createStore, applyMiddleware } from 'red
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import logger from 'redux-logger';
-import thunk from 'redux-thunk';
+import createSagaMiddleware from 'redux-saga';
+import { rootSaga } from './root-saga';
 import { rootReducer } from './root-reducer';
 
 const persistConfig = {
@@ -14,9 +15,11 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
+const sagaMiddleware = createSagaMiddleware();
+
 // Instead of logger from redux-logger, we can use the custom middleware
 // written inside store/middleware/logger.js
-const middlewares = [process.env.NODE_ENV !== 'production' && logger, thunk].filter(Boolean);
+const middlewares = [process.env.NODE_ENV !== 'production' && logger, sagaMiddleware].filter(Boolean);
 
 // Enable redux devtools extension in development mode
 const composeEnhancer =
@@ -25,5 +28,7 @@ const composeEnhancer =
 const composedEnhancers = composeEnhancer(applyMiddleware(...middlewares));
 
 export const store = createStore(persistedReducer, undefined, composedEnhancers);
+
+sagaMiddleware.run(rootSaga);
 
 export const persistor = persistStore(store);
