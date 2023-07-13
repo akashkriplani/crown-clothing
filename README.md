@@ -14,6 +14,17 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
+### `netlify dev`
+
+Runs the app in the development mode.\
+This will run if you want to run stripe integration locally using netlify-cli.\
+Install netlify-cli on your system, log in using `netlify-cli login` command.\
+Then run `netlify dev` to the application in development mode.\
+Open [http://localhost:8888](http://localhost:8888) to view it in your browser.
+
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
+
 ### `npm test`
 
 Launches the test runner in the interactive watch mode.\
