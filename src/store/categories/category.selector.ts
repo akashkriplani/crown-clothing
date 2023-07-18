@@ -1,8 +1,9 @@
 import { createSelector } from 'reselect';
+import { RootState } from './../store';
 import { CategoriesState } from './category.reducer';
 import { CategoryMap } from './category.types';
 
-const selectCategoryReducer = (state): CategoriesState => state.categories;
+const selectCategoryReducer = (state: RootState): CategoriesState => state.categories;
 
 // useSelector from react-redux always gets fired (in every component) whether or not an action is dispatched
 // that was dispatched was related to it. That causes the components to re-render even if
