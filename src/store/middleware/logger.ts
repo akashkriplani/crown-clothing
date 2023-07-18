@@ -1,5 +1,8 @@
+import { Middleware } from 'redux';
+import { RootState } from '../store';
+
 // Custom logger middleware which works pretty much the same as redux-logger
-export const loggerMiddleware = (store) => (next) => (action) => {
+export const loggerMiddleware: Middleware<{}, RootState> = (store) => (next) => (action) => {
   if (!action.type) {
     return next(action);
   }
